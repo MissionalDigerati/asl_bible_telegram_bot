@@ -32,7 +32,7 @@ var config = require('./config');
  * @type {Object}
  */
 var DigitalBiblePlatformDataSource = require('./lib/digital-bible-platform-data-source.js');
-var dbpDataSource = new DigitalBiblePlatformDataSource(config.digitalBiblePlatform.apiKey);
+var dbpDataSource = new DigitalBiblePlatformDataSource(config.digitalBiblePlatform.apiKey, 'ASESLVO2DV', 'ASESLVN2DV');
 /**
  * Setup our Telegram bot
  *

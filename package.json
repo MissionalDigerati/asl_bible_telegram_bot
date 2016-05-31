@@ -1,0 +1,21 @@
+{
+  "name": "asl-bible-telegram-bot",
+  "version": "0.1.0",
+  "description": "A Telegram bot that provides Bible passages in American Sign Language.",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Telegram",
+    "bot",
+    "ASL",
+    "Bible",
+    "American",
+    "Sign",
+    "Language"
+  ],
+  "author": "Missional Digerati",
+  "license": "GPL-3.0"
+}

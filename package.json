@@ -17,5 +17,9 @@
     "Language"
   ],
   "author": "Missional Digerati",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "dependencies": {
+    "promised-io": "^0.3.5",
+    "request": "^2.72.0"
+  }
 }

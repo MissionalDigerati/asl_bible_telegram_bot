@@ -57,4 +57,4 @@ setInterval(function(){
        polling = false;
      });
    }
-}, 5000);
+}, 3000);

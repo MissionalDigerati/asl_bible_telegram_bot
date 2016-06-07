@@ -20,6 +20,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "promised-io": "^0.3.5",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "underscore": "^1.8.3"
   }
 }

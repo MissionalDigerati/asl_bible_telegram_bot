@@ -86,8 +86,8 @@ server.get('/', function(req, res) {
  * Telegram Bot Web Hook
  */
 server.post('/bots/telegram', function(req, res) {
-  console.log(req.params);
-  res.end('<html><body>TELEGRAM</body></html>');
+  telegramBot.webHookUpdate(req.params);
+  res.end('');
 });
 
 server.listen(config.serverPort, function () {
@@ -100,7 +100,7 @@ if (config.usePolling) {
   setInterval(function(){
      if(!polling){
        polling = true;
-       telegramBot.update().then(function() {
+       telegramBot.pollingUpdate().then(function() {
          console.log('Telegram Updated!');
          polling = false;
        });

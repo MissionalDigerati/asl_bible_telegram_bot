@@ -27,6 +27,18 @@
  */
 var config = require('./config');
 /**
+ * The Restify library for API development
+ *
+ * @type {Object}
+ */
+var restify = require('restify');
+/**
+ * The Restify Server
+ *
+ * @type {Object}
+ */
+var server = restify.createServer();
+/**
  * Setup our Digital Bible Platform Data Source
  *
  * @type {Object}
@@ -47,14 +59,56 @@ var telegramBot = new TelegramBot(dbpDataSource, config.telegram.botToken);
  */
 var polling = false;
 /**
- * Start polling the bot server
+ * Server Settings
  */
-setInterval(function(){
-   if(!polling){
-     polling = true;
-     telegramBot.update().then(function() {
-       console.log('Updated!');
-       polling = false;
-     });
-   }
-}, 3000);
+/**
+ * parse the body of the passed parameters
+ */
+server.use(restify.bodyParser({ mapParams: true }));
+/**
+ * Handle the default errors
+ * http://stackoverflow.com/a/26252941
+ */
+server.on('uncaughtException', function (req, res) {
+  res.send(500, {"code":"InternalServerError", "message":"The server encountered an unexpected condition."});
+});
+
+/**
+ * Routes
+ */
+/**
+ * The Home Page
+ */
+server.get('/', function(req, res) {
+  res.end('<html><body>Home</body></html>');
+});
+/**
+ * Telegram Bot Web Hook
+ */
+server.post('/bots/telegram', function(req, res) {
+  telegramBot.webHookUpdate(req.params);
+  res.end('');
+});
+
+server.listen(config.serverPort, function () {
+  console.log('%s listening at %s', server.name, server.url);
+});
+/**
+ * Start polling the bot servers
+ */
+if (config.usePolling) {
+  setInterval(function(){
+     if(!polling){
+       polling = true;
+       telegramBot.pollingUpdate().then(function() {
+         console.log('Telegram Updated!');
+         polling = false;
+       });
+     }
+  }, 3000);
+} else {
+  /**
+   * Register webhooks
+   */
+  // telegramBot.registerWebHook(config.serverDomain + '/bots/telegram');
+}

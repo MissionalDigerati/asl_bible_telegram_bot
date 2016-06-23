@@ -33,11 +33,24 @@ var config = require('./config');
  */
 var restify = require('restify');
 /**
+ * The File System
+ *
+ * @type {Object}
+ */
+var fs = require('fs');
+/**
  * The Restify Server
  *
  * @type {Object}
  */
-var server = restify.createServer();
+if (process.env.NODE_ENV === 'production') {
+  var server = restify.createServer({
+    certificate: fs.readFileSync(config.ssl.certificate),
+    key: fs.readFileSync(config.ssl.privateKey)
+  });
+} else {
+  var server = restify.createServer();
+}
 /**
  * Setup our Digital Bible Platform Data Source
  *
@@ -96,7 +109,12 @@ server.listen(config.serverPort, function () {
 /**
  * Start polling the bot servers
  */
-if (config.usePolling) {
+if (process.env.NODE_ENV === 'production') {
+  /**
+   * Register webhooks
+   */
+  // telegramBot.registerWebHook(config.serverDomain + '/bots/telegram', config.ssl.publicKey);
+} else {
   setInterval(function(){
      if(!polling){
        polling = true;
@@ -106,9 +124,4 @@ if (config.usePolling) {
        });
      }
   }, 3000);
-} else {
-  /**
-   * Register webhooks
-   */
-  // telegramBot.registerWebHook(config.serverDomain + '/bots/telegram');
 }

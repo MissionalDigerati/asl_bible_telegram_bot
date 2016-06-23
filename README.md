@@ -8,6 +8,8 @@ This repository is following the branching technique described in [this blog pos
 
 Questions or problems? Please post them on the [issue tracker](https://github.com/MissionalDigerati/asl_bible_telegram_bot/issues). You can contribute changes by forking the project and submitting a pull request.
 
+Run with the environment variable `NODE_ENV=production node index.js`.
+
 #License
 
 This code is copyrighted by [Missional Digerati](http://missionaldigerati.org) and is under the [GNU General Public License v3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).

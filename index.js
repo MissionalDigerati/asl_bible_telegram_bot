@@ -117,7 +117,7 @@ if (process.env.NODE_ENV === 'production') {
   /**
    * Register webhooks
    */
-  // telegramBot.registerWebHook(config.serverDomain + '/bots/telegram');
+  telegramBot.registerWebHook(config.serverDomain + '/bots/telegram/' + config.telegram.webHookToken);
 } else {
   setInterval(function(){
      if(!polling){

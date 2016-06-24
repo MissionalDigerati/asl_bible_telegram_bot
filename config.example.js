@@ -15,7 +15,6 @@ config.ssl = {};
  */
 config.ssl.certificate = '';
 config.ssl.privateKey = '';
-config.ssl.publicKey = '';
 config.telegram = {};
 config.digitalBiblePlatform = {};
 config.telegram.botToken = 'MY-TELEGRAM-BOT-TOKEN';

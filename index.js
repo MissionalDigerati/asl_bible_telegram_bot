@@ -98,9 +98,13 @@ server.get('/', function(req, res) {
 /**
  * Telegram Bot Web Hook
  */
-server.post('/bots/telegram', function(req, res) {
-  telegramBot.webHookUpdate(req.params);
-  res.end('');
+server.post('/bots/telegram/:token', function(req, res) {
+  if (req.params.token === config.telegram.webHookToken) {
+    telegramBot.webHookUpdate(req.params);
+    res.send(200, 'true');
+  } else {
+    res.send(403, { 'error': 'Forbidden. You are not allowed to access this url.' });
+  }
 });
 
 server.listen(config.serverPort, function () {

@@ -96,6 +96,36 @@ server.get('/', function(req, res) {
   res.end('<html><body>Home</body></html>');
 });
 /**
+ * Display the requested video
+ */
+server.get('/videos/:bookId/:chapterId/:verseId', function(req, res) {
+  var url = config.serverDomain + '/videos/' + req.params.bookId + '/' + req.params.chapterId + '/' + req.params.verseId;
+  dbpDataSource.findByIds(req.params.bookId, req.params.chapterId, req.params.verseId).then(function(results) {
+    if (results.videos.length > 0) {
+      var video = results.videos[0];
+      var title = dbpDataSource.getVideoTitle(video, true);
+      fs.readFile('./templates/video.html', 'utf8', function (err, data) {
+        data = data.replace(/\{\{pageTitle\}\}/g, title);
+        data = data.replace(/\{\{pageUrl\}\}/g, url);
+        data = data.replace(/\{\{videoUrl\}\}/g, video.path);
+        res.end(data);
+      });
+    } else {
+      fs.readFile('./templates/video-not-found.html', 'utf8', function (err, data) {
+        data = data.replace(/\{\{pageUrl\}\}/g, url);
+        data = data.replace(/\{\{pageDescription\}\}/g, 'ASLBibleBot provides an easy way to retrieve Bible passages in American Sing Language.  Currently we support the Telegram app.');
+        res.end(data);
+      });
+    }
+  }, function() {
+    fs.readFile('./templates/video-not-found.html', 'utf8', function (err, data) {
+      data = data.replace(/\{\{pageUrl\}\}/g, url);
+      data = data.replace(/\{\{pageDescription\}\}/g, 'ASLBibleBot provides an easy way to retrieve Bible passages in American Sing Language.  Currently we support the Telegram app.');
+      res.end(data);
+    });
+  });
+});
+/**
  * Telegram Bot Web Hook
  */
 server.post('/bots/telegram/:token', function(req, res) {
@@ -123,13 +153,13 @@ if (process.env.NODE_ENV === 'production') {
    * Deregister webhooks
    */
   telegramBot.registerWebHook('');
-  setInterval(function(){
-     if(!polling){
-       polling = true;
-       telegramBot.pollingUpdate().then(function() {
-         console.log('Telegram Updated!');
-         polling = false;
-       });
-     }
-  }, 3000);
+  // setInterval(function(){
+  //    if(!polling){
+  //      polling = true;
+  //      telegramBot.pollingUpdate().then(function() {
+  //        console.log('Telegram Updated!');
+  //        polling = false;
+  //      });
+  //    }
+  // }, 3000);
 }

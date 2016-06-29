@@ -92,9 +92,10 @@ server.on('uncaughtException', function (req, res) {
 /**
  * The Home Page
  */
-server.get('/', function(req, res) {
-  res.end('<html><body>Home</body></html>');
-});
+server.get('/', restify.serveStatic({
+  directory: './static',
+  file: 'home.html'
+}));
 /**
  * Telegram Bot Web Hook
  */

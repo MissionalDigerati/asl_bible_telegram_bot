@@ -123,14 +123,14 @@ if (process.env.NODE_ENV === 'production') {
   /**
    * Deregister webhooks
    */
-  telegramBot.registerWebHook('');
-  setInterval(function(){
-     if(!polling){
-       polling = true;
-       telegramBot.pollingUpdate().then(function() {
-         console.log('Telegram Updated!');
-         polling = false;
-       });
-     }
-  }, 3000);
+  // telegramBot.registerWebHook('');
+  // setInterval(function(){
+  //    if(!polling){
+  //      polling = true;
+  //      telegramBot.pollingUpdate().then(function() {
+  //        console.log('Telegram Updated!');
+  //        polling = false;
+  //      });
+  //    }
+  // }, 3000);
 }

@@ -79,6 +79,10 @@ var polling = false;
  */
 server.use(restify.bodyParser({ mapParams: true }));
 /**
+ * parse the body of the passed parameters
+ */
+server.use(restify.queryParser({ mapParams: true }));
+/**
  * Handle the default errors
  * http://stackoverflow.com/a/26252941
  */
@@ -105,6 +109,26 @@ server.post('/bots/telegram/:token', function(req, res) {
     res.send(200, 'true');
   } else {
     res.send(403, { 'error': 'Forbidden. You are not allowed to access this url.' });
+  }
+});
+/**
+ * FB Messenger Bot Web Hooks
+ * GET: Register the web hook
+ * POST: Receive messages
+ */
+server.get('/bots/fb', function(req, res) {
+  if (req.params.hub.mode === 'subscribe' && req.params.hub.verify_token === config.fb.webHookToken) {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end(req.params.hub.challenge);
+    res.next();
+  } else {
+    res.send(403, { 'error': 'Forbidden. You are not allowed to access this url.' });
+  }
+});
+server.post('/bots/fb', function(req, res) {
+  var data = req.body;
+  if (data.object === 'page') {
+    console.log(data);
   }
 });
 

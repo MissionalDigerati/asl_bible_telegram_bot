@@ -16,11 +16,13 @@ config.ssl = {};
 config.ssl.certificate = '';
 config.ssl.privateKey = '';
 config.telegram = {};
+config.fb = {};
+config.digitalBiblePlatform = {};
 /**
  * A token to verify we are getting a request from telegram and not a hacker
  */
-config.telegram.webHookToken = 'cYcL9hnVw6e2H7RjxiUtj';
-config.digitalBiblePlatform = {};
+config.telegram.webHookToken = 'MY-TELEGRAM-WEBHOOK-TOKEN';
+config.fb.webHookToken = 'MY-FACEBOOK-WEBHOOK-TOKEN';
 config.telegram.botToken = 'MY-TELEGRAM-BOT-TOKEN';
 config.digitalBiblePlatform.apiKey = 'MY-DIGITAL-BIBLE-PLATFORM-API-KEY';
 

@@ -136,7 +136,6 @@ server.post('/bots/fb', function(req, res) {
   var data = req.body;
   if (data.object === 'page') {
     fbMessengerBot.webHookUpdate(data.entry);
-    console.log('webhook complete');
     res.send(200, '');
   } else {
     res.send(403, { 'error': 'Forbidden. You are passing an unsupported webhook.' });

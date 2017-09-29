@@ -24,6 +24,7 @@ config.digitalBiblePlatform = {};
 config.telegram.webHookToken = 'MY-TELEGRAM-WEBHOOK-TOKEN';
 config.fb.webHookToken = 'MY-FACEBOOK-WEBHOOK-TOKEN';
 config.telegram.botToken = 'MY-TELEGRAM-BOT-TOKEN';
+config.fb.botToken = 'MY-FACEBOOK-BOT-TOKEN';
 config.digitalBiblePlatform.apiKey = 'MY-DIGITAL-BIBLE-PLATFORM-API-KEY';
 
 module.exports = config;

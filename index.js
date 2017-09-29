@@ -66,6 +66,13 @@ var dbpDataSource = new DigitalBiblePlatformDataSource(config.digitalBiblePlatfo
 var TelegramBot = require('./lib/telegram-bot.js');
 var telegramBot = new TelegramBot(dbpDataSource, config.telegram.botToken);
 /**
+ * Setup our FaceBook Messenger bot
+ *
+ * @type {Object}
+ */
+var FBMessengerBot = require('./lib/fb-messenger-bot.js');
+var fbMessengerBot = new FBMessengerBot(dbpDataSource, config.fb.botToken);
+/**
  * Are we currently polling?
  *
  * @type {Boolean}
@@ -118,9 +125,9 @@ server.post('/bots/telegram/:token', function(req, res) {
  */
 server.get('/bots/fb', function(req, res) {
   if (req.params.hub.mode === 'subscribe' && req.params.hub.verify_token === config.fb.webHookToken) {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
     res.end(req.params.hub.challenge);
-    res.next();
   } else {
     res.send(403, { 'error': 'Forbidden. You are not allowed to access this url.' });
   }
@@ -128,7 +135,11 @@ server.get('/bots/fb', function(req, res) {
 server.post('/bots/fb', function(req, res) {
   var data = req.body;
   if (data.object === 'page') {
-    console.log(data);
+    fbMessengerBot.webHookUpdate(data.entry);
+    console.log('webhook complete');
+    res.send(200, '');
+  } else {
+    res.send(403, { 'error': 'Forbidden. You are passing an unsupported webhook.' });
   }
 });
 

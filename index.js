@@ -97,6 +97,16 @@ server.use(restify.bodyParser({ mapParams: true }));
  */
 server.use(restify.queryParser({ mapParams: true }));
 /**
+ * Enable Cors
+ */
+server.use(restify.CORS(
+  {
+    origins: ['*'],
+    credentials: false,
+    headers: []
+  }
+));
+/**
  * Handle the default errors
  * http://stackoverflow.com/a/26252941
  */

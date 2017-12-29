@@ -17,6 +17,7 @@ config.ssl.certificate = '';
 config.ssl.privateKey = '';
 config.telegram = {};
 config.fb = {};
+config.api = {};
 config.digitalBiblePlatform = {};
 /**
  * A token to verify we are getting a request from telegram and not a hacker
@@ -25,6 +26,7 @@ config.telegram.webHookToken = 'MY-TELEGRAM-WEBHOOK-TOKEN';
 config.fb.webHookToken = 'MY-FACEBOOK-WEBHOOK-TOKEN';
 config.telegram.botToken = 'MY-TELEGRAM-BOT-TOKEN';
 config.fb.botToken = 'MY-FACEBOOK-BOT-TOKEN';
+config.api.apiToken = 'MY-WEB-API-TOKEN';
 config.digitalBiblePlatform.apiKey = 'MY-DIGITAL-BIBLE-PLATFORM-API-KEY';
 
 module.exports = config;

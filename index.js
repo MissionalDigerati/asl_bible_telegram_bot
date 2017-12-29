@@ -73,6 +73,13 @@ var telegramBot = new TelegramBot(dbpDataSource, config.telegram.botToken);
 var FBMessengerBot = require('./lib/fb-messenger-bot.js');
 var fbMessengerBot = new FBMessengerBot(dbpDataSource, config.fb.botToken);
 /**
+ * Setup our WebAPI
+ *
+ * @type {Object}
+ */
+var WebAPI = require('./lib/web-api.js');
+var webAPI = new WebAPI(dbpDataSource);
+/**
  * Are we currently polling?
  *
  * @type {Boolean}
@@ -139,6 +146,22 @@ server.post('/bots/fb', function(req, res) {
     res.send(200, '');
   } else {
     res.send(403, { 'error': 'Forbidden. You are passing an unsupported webhook.' });
+  }
+});
+/**
+ * Web API Web Hooks
+ */
+server.get('/api/search', function(req, res) {
+  if (req.params.token !== config.api.apiToken) {
+    res.send(403, { 'error': 'Forbidden. You are not allowed to access this url.' });
+  } else if ((!req.params.query) || (req.params.query === '')) {
+    res.send(400, { 'error': 'Bad Request. You are missing the query parameter.' });
+  } else {
+    webAPI.search(req.params.query).then(function(data) {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/javascript');
+      res.end(JSON.stringify({results: data}));
+    });
   }
 });
 

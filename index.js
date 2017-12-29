@@ -170,7 +170,7 @@ server.get('/api/search', function(req, res) {
     webAPI.search(req.params.query).then(function(data) {
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/javascript');
-      res.end(JSON.stringify({results: data}));
+      res.end(JSON.stringify(data));
     });
   }
 });

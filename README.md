@@ -14,9 +14,10 @@ npm install -g forever
 ```
 - Add a crontab to restart the app
 ```
-@reboot /usr/local/bin/forever start /your/path/to/your/app.js
+@reboot /your/path/to/your/start-forever.sh
 ```
 - Set up Apache to run the server
+- Use `start-forever.sh` to start the service
 
 #Development
 

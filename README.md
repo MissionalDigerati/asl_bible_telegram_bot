@@ -2,6 +2,22 @@
 
 This bot is used by the [Telegram Messenger App](http://telegram.me) to retrieve Bible passages in American Sign Language.  It uses the [Digital Bible Platform](http://digitalbibleplatform.org) to retrieve the passages.  Check it out at @ASLBible.
 
+#Deploy
+
+- First clone the repository
+- change to the document root, and run `npm install`
+- add your configurations `cp config.example.js config.js`
+- Install Forever
+```
+sudo su
+npm install -g forever
+```
+- Add a crontab to restart the app
+```
+@reboot /usr/local/bin/forever start /your/path/to/your/app.js
+```
+- Set up Apache to run the server
+
 #Development
 
 This repository is following the branching technique described in [this blog post](http://nvie.com/posts/a-successful-git-branching-model/), and the semantic version set out on the [Semantic Versioning Website](http://semver.org/).
